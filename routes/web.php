@@ -22,3 +22,7 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::group(['prefix' => 'admin'], function() {
     Route::get('departments', 'DepartmentsController@index');
 });
+
+Route::get('/post/idea', 'IdeasController@postIdea');
+Route::post('/post/idea', 'IdeasController@store');
+Route::get('/ideas', 'IdeasController@index');
