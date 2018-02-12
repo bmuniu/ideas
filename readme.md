@@ -15,7 +15,9 @@ Idea Sharing is a web-enabled role-based system for collecting ideas for improve
     - DB_DATABASE to ```ideas```
     - DB_USERNAME to your database username
     - DB_PASSWORD to your database password
-- Finally, Run the command ```php artisan migrate --seed```
+- Run the command ```php artisan migrate --seed``` to create the database schema and test data
+- cd into the projects directory ```ideas``` then run ```php artisan serve```. This should launch the development server 
+- run the web application from ```http://localhost:8000```
 
 ## Test Credentials
 - To login into the system as the admin, use the following test credentials;
