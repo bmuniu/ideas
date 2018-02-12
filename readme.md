@@ -16,3 +16,8 @@ Idea Sharing is a web-enabled role-based system for collecting ideas for improve
     - DB_USERNAME to your database username
     - DB_PASSWORD to your database password
 - Finally, Run the command ```php artisan migrate --seed```
+
+## Test Credentials
+- To login into the system as the admin, use the following test credentials;
+    - Email: <b>admin@gmail.com</b>
+    - Password: <b>pass123</b>
