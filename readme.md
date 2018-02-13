@@ -9,7 +9,6 @@ Idea Sharing is a web-enabled role-based system for collecting ideas for improve
 ## Installation
 
 - Run the command ```cp .env.example .env``` to create the environment variables file
-- Run the command ```php artisan key:generate```
 - Create the database ```ideas``` 
 - Edit the <b>.env</b> and set the following;
     - DB_DATABASE to ```ideas```

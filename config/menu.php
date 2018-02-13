@@ -8,6 +8,12 @@ return [
     ],
 
     (object) [
+        'name' => 'Register Users',
+        'url' => 'admin/register/user',
+        'icon' => 'fa-users'
+    ],
+
+    (object) [
         'name' => 'Departments',
         'url' => 'admin/departments',
         'icon' => 'fa-list'
