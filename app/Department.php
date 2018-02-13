@@ -11,4 +11,8 @@ class Department extends Model
     public function user() {
         return $this->belongsTo(User::class, 'qa_cordinator', 'id');
     }
+
+    public function ideas() {
+        return $this->hasMany(Idea::class);
+    }
 }

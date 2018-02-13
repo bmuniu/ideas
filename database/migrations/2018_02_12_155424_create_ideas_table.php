@@ -16,12 +16,12 @@ class CreateIdeasTable extends Migration
         Schema::create('ideas', function (Blueprint $table) {
             $table->increments('id');
             $table->text('idea');
-            $table->integer('student_id')->nullable()->unsigned();
-            $table->integer('staff_id')->nullable()->unsigned();
-            $table->foreign('student_id')
-                ->references('id')->on('users')
+            $table->integer('user_id')->nullable()->unsigned();
+            $table->integer('department_id')->nullable()->unsigned();
+            $table->foreign('department_id')
+                ->references('id')->on('departments')
                 ->onUpdate('cascade')->onDelete('cascade');
-            $table->foreign('staff_id')
+            $table->foreign('user_id')
                 ->references('id')->on('users')
                 ->onUpdate('cascade')->onDelete('cascade');
             $table->boolean('anonymous')->default(false);

@@ -39,4 +39,5 @@ Route::group(['prefix' => 'qa-manager'], function () {
 
 Route::get('/post/idea', 'IdeasController@postIdea');
 Route::post('/post/idea', 'IdeasController@store');
-Route::get('/idea/', 'IdeasController@index');
+Route::get('/ideas', 'IdeasController@index');
+Route::get('/idea/thumbs/{idea_id}/{reaction}', 'IdeasController@react');

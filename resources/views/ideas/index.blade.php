@@ -117,12 +117,12 @@
 @section('content')
     <div class="panel panel-default">
         <div class="panel-heading">
-            <i class="fa fa-list"></i> Ideas
+            <i class="fa fa-list"></i> Ideas Timeline
         </div>
 
         <div class="panel-body">
             <div class="container">
-
+                @include('common.success')
                 <div class="row">
                     <div class="qa-message-list" id="wallmessages">
                         @if (count($ideas))
@@ -133,17 +133,32 @@
                                         <div class="message-head clearfix">
                                             <div class="avatar pull-left"><a href="./index.php?qa=user&qa_1=Oleg+Kolesnichenko"><img src="https://ssl.gstatic.com/accounts/ui/avatar_2x.png"></a></div>
                                             <div class="user-detail">
-                                                <h5 class="handle">Oleg Kolesnichenko</h5>
+                                                <h5 class="handle">{{ $idea->user->name }}</h5>
                                                 <div class="post-meta">
                                                     <div class="asker-meta">
                                                         <span class="qa-message-what"></span>
                                                         <span class="qa-message-when">
-												<span class="qa-message-when-data">{{ date('F d, Y', strtotime($idea->created_at)) }}</span>
-											</span>
-                                                        <span class="qa-message-who">
-												<span class="qa-message-who-pad">by </span>
-												<span class="qa-message-who-data"><a href="./index.php?qa=user&qa_1=Oleg+Kolesnichenko">Oleg Kolesnichenko</a></span>
-											</span>
+                                                            <span class="qa-message-when-data">{{ date('F d, Y', strtotime($idea->created_at)) }}</span>
+                                                        </span>
+
+                                                        @if(!empty($idea->document_file))
+                                                            <span class="qa-message-who">
+                                                                <span class="qa-message-who-data">
+                                                                    <a href="{{ url('download/doc/' . $idea->id) }}" class="btn btn-info btn-xs">
+                                                                        <i class="fa fa-paperclip"></i> Download Attached Document</a>
+                                                                </span>
+                                                            </span>
+                                                        @endif
+
+                                                    </div>
+                                                    <p></p>
+                                                    <div class="pull-left">
+                                                        <a href="{{ url('idea/thumbs/'. $idea->id .'/1') }}" class="btn btn-xs btn-default">
+                                                            <i class="fa fa-thumbs-up fa-2x"></i> 90
+                                                        </a>
+                                                        <a href="{{ url('idea/thumbs/'. $idea->id .'/0') }}" class="btn btn-xs btn-default">
+                                                            <i class="fa fa-thumbs-down fa-2x"></i> 56
+                                                        </a>
                                                     </div>
                                                 </div>
                                             </div>

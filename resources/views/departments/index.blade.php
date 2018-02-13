@@ -94,7 +94,7 @@
                     @else
                         <tfoot>
                             <tr>
-                                <th colspan="3" class="text-center">No Departments found!</th>
+                                <th colspan="4" class="text-center">No Departments found!</th>
                             </tr>
                         </tfoot>
                     @endif

@@ -4,86 +4,107 @@
 @section('content')
     <div class="panel panel-default">
         <div class="panel-heading">
-            <i class="fa fa-list"></i> Ideas
+            <i class="fa fa-comment"></i> Post Idea
         </div>
 
         <div class="panel-body">
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-12">
-                        <form action="{{ url('post/idea') }}" method="post" enctype="multipart/form-data">
-                            {{ csrf_field() }}
-                            <div class="row">
-                                <div class="form-group col-md-6">
-                                    <label for="exampleInputEmail1">Category</label>
-                                    <select name="category" class="form-control">
-                                        <option value="">--Select Category--</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="form-group col-md-6">
-                                    <label for="exampleInputEmail1">Idea</label>
-                                    <textarea class="form-control" name="post" id="exampleInputEmail1"></textarea>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="form-group col-md-6">
-                                    <label for="document">Document</label>
-                                    <input type="file" name="document" id="document"/>
-                                </div>
-                            </div>
-                            <div class="form-check">
-                                <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                                <label class="form-check-label" for="exampleCheck1">Anonymous</label>
-                            </div>
+            @include('common.error')
+            <form action="{{ url('post/idea') }}" method="post" enctype="multipart/form-data" class="form-horizontal">
+                {{ csrf_field() }}
+                <div class="form-group{{ $errors->has('department_id') ? ' has-error' : '' }}">
+                    <label for="department_id" class="col-md-4 control-label">Department</label>
 
-                            <div class="form-check">
-                                <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                                <label class="form-check-label" for="exampleCheck1">Agree to Terms and Condition</label>
-                            </div>
-                            <button type="submit" class="btn btn-primary">Post Idea</button>
-                        </form>
-                    </div>
-                </div>
+                    <div class="col-md-6">
+                        <select name="department_id" class="form-control" required>
+                            <option value="">--Select--</option>
+                            @if(count($departments))
+                                @foreach($departments as $department)
+                                    <option value="{{ $department->id }}">{{ $department->department_name }}</option>
+                                @endforeach
+                            @endif
+                        </select>
 
-                <div class="row">
-                    <div class="qa-message-list" id="wallmessages">
-                        @if (count($ideas))
-                            @foreach($ideas as $idea)
-
-                            <div class="message-item" id="m2" style="width: 66%;">
-                            <div class="message-inner">
-                                <div class="message-head clearfix">
-                                    <div class="avatar pull-left"><a href="./index.php?qa=user&qa_1=Oleg+Kolesnichenko"><img src="https://ssl.gstatic.com/accounts/ui/avatar_2x.png"></a></div>
-                                    <div class="user-detail">
-                                        <h5 class="handle">Oleg Kolesnichenko</h5>
-                                        <div class="post-meta">
-                                            <div class="asker-meta">
-                                                <span class="qa-message-what"></span>
-                                                <span class="qa-message-when">
-												<span class="qa-message-when-data">{{ date('F d, Y', strtotime($idea->created_at)) }}</span>
-											</span>
-                                                <span class="qa-message-who">
-												<span class="qa-message-who-pad">by </span>
-												<span class="qa-message-who-data"><a href="./index.php?qa=user&qa_1=Oleg+Kolesnichenko">Oleg Kolesnichenko</a></span>
-											</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="qa-message-content">
-                                    {{ $idea->idea }}
-                                </div>
-                            </div>
-                        </div>
-
-                            @endforeach
+                        @if ($errors->has('department_id'))
+                            <span class="help-block">
+                                <strong>{{ $errors->first('department_id') }}</strong>
+                            </span>
                         @endif
                     </div>
                 </div>
 
-            </div>
+                <div class="form-group{{ $errors->has('idea_category_id') ? ' has-error' : '' }}">
+                    <label for="category" class="col-md-4 control-label">Category</label>
+
+                    <div class="col-md-6">
+                        <select name="idea_category_id" id="category" class="form-control" required>
+                            <option value="">--Select Category--</option>
+                            @if(count($categories))
+                                @foreach($categories as $category)
+                                    <option value="{{ $category->id }}">{{ $category->category_name }}</option>
+                                @endforeach
+                            @endif
+                        </select>
+
+                        @if ($errors->has('idea_category_id'))
+                            <span class="help-block">
+                                <strong>{{ $errors->first('idea_category_id') }}</strong>
+                            </span>
+                        @endif
+                    </div>
+                </div>
+
+                <div class="form-group{{ $errors->has('idea') ? ' has-error' : '' }}">
+                    <label for="idea" class="col-md-4 control-label">Idea</label>
+
+                    <div class="col-md-6">
+                        <textarea name="idea" id="idea" rows="5" class="form-control" required></textarea>
+
+                        @if ($errors->has('idea'))
+                            <span class="help-block">
+                                <strong>{{ $errors->first('idea') }}</strong>
+                            </span>
+                        @endif
+                    </div>
+                </div>
+
+                <div class="form-group{{ $errors->has('document') ? ' has-error' : '' }}">
+                    <label for="document" class="col-md-4 control-label">Upload Document</label>
+
+                    <div class="col-md-6">
+                        <input type="file" name="document" id="document" class="form-control"/>
+
+                        @if ($errors->has('document'))
+                            <span class="help-block">
+                                <strong>{{ $errors->first('document') }}</strong>
+                            </span>
+                        @endif
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-md-6 col-md-offset-4">
+                        <div class="checkbox">
+                            <label>
+                                <input type="checkbox" name="anonymous" {{ old('remember') ? 'checked' : '' }}> Post Anonymously
+                            </label>
+                        </div>
+                        <div class="checkbox">
+                            <label>
+                                <input type="checkbox" name="agree" {{ old('remember') ? 'checked' : '' }}> Agree to Terms and Conditions
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-md-8 col-md-offset-4">
+                        <button type="submit" class="btn btn-primary">
+                             Post Idea
+                        </button>
+                    </div>
+                </div>
+                </form>
+
         </div>
     </div>
 @endsection
