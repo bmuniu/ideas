@@ -21,7 +21,7 @@ return [
 
     (object) [
         'name' => 'Idea Categories',
-        'url' => 'idea-categories',
+        'url' => 'qa-manager/idea/categories',
         'icon' => 'fa-list'
     ],
 

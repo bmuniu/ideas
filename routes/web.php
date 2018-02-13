@@ -19,7 +19,7 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-Route::group(['prefix' => 'admin'], function() {
+Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function() {
     Route::get('register/user', 'RegistrationController@index');
     Route::post('register/user', 'RegistrationController@store');
     Route::get('user/{user}', 'RegistrationController@edit');
@@ -31,6 +31,12 @@ Route::group(['prefix' => 'admin'], function() {
     Route::get('department/{id}', 'DepartmentsController@destroy');
 });
 
+Route::group(['prefix' => 'qa-manager'], function () {
+    Route::get('idea/categories', 'IdeaCategoriesController@index');
+    Route::post('idea/category', 'IdeaCategoriesController@store');
+    Route::get('idea/category/{id}', 'IdeaCategoriesController@destroy');
+});
+
 Route::get('/post/idea', 'IdeasController@postIdea');
 Route::post('/post/idea', 'IdeasController@store');
-Route::get('/ideas', 'IdeasController@index');
+Route::get('/idea/', 'IdeasController@index');
