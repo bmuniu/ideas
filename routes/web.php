@@ -23,6 +23,9 @@ Route::group(['prefix' => 'admin'], function() {
     Route::get('departments', 'DepartmentsController@index');
     Route::get('register/user', 'RegistrationController@index');
     Route::post('register/user', 'RegistrationController@store');
+    Route::get('user/{user}', 'RegistrationController@edit');
+    Route::put('user', 'RegistrationController@update');
+    Route::get('delete/user/{id}', 'RegistrationController@destroy');
 });
 
 Route::get('/post/idea', 'IdeasController@postIdea');

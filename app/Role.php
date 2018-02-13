@@ -12,4 +12,8 @@ class Role extends Model
     public static function admin() {
         return self::where('role_name', self::Admin)->first();
     }
+
+    public function user() {
+        return $this->hasOne(User::class);
+    }
 }

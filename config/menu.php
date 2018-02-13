@@ -8,7 +8,7 @@ return [
     ],
 
     (object) [
-        'name' => 'Register Users',
+        'name' => 'User Registration',
         'url' => 'admin/register/user',
         'icon' => 'fa-users'
     ],
@@ -32,7 +32,7 @@ return [
     ],
 
     (object) [
-        'name' => 'Idea Timeline',
+        'name' => 'Ideas Timeline',
         'url' => 'ideas',
         'icon' => 'fa-list'
     ]

@@ -30,4 +30,8 @@ class User extends Authenticatable
     public function departments() {
         return $this->hasMany(Department::class);
     }
+
+    public function role() {
+        return $this->belongsTo(Role::class);
+    }
 }
