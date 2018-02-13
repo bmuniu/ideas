@@ -15,7 +15,7 @@ class CreateIdeaCategoriesTable extends Migration
     {
         Schema::create('idea_categories', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('category_name')->unique();
+            $table->string('category_name',150)->unique();
             $table->timestamps();
         });
     }

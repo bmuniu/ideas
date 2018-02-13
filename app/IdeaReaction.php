@@ -15,6 +15,12 @@ class IdeaReaction extends Model
             ->count();
     }
 
+    public static function reactionCount($reaction, $idea_id, $user_id){
+        return self::where('reaction', $reaction)
+            ->where('idea_id', $idea_id)
+            ->count();
+    }
+
     public static function removeOtherReactions($reaction, $idea_id, $user_id){
         return self::where('reaction', $reaction)
             ->where('idea_id', $idea_id)

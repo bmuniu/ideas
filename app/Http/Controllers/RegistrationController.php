@@ -28,7 +28,7 @@ class RegistrationController extends Controller
     public function store() {
         $post = request()->validate(['name' => 'required', 'email' => 'required|unique:users', 'role_id' => 'required']);
         $post['position'] = (request()->has('position')) ? request('position') : '';
-        $post['password'] = 123456;
+        $post['password'] = bcrypt(123456);
 
         User::create($post);
 

@@ -25,8 +25,10 @@ class AppServiceProvider extends ServiceProvider
     public function register()
     {
         view()->composer('layouts.partials.sidemenu', function($view) {
+            $role = strtolower(auth()->user()->role->role_name);
+
             $view->with('active_route', Route::current())
-                ->with('menu', config('menu'));
+                ->with('menu', config('menu.' . $role));
         });
     }
 }

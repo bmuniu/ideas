@@ -124,12 +124,26 @@
             <div class="container">
                 <div class="row">
                     <div class="qa-message-list" id="wallmessages">
+                        <div style="width: 66%;">
+                            @include('common.success')
+                            @include('common.error')
+                        </div>
+
                         @if (count($ideas))
                             @foreach($ideas as $idea)
+                                <?php
+                                    $role = $idea->user->role->role_name;
+                                    $visible = true;
 
-                                <div class="message-item" id="m2" style="width: 66%;">
-                                    @include('common.success')
-                                    @include('common.error')
+                                    if ($role == 'Staff' && auth()->user()->role->role_name == 'Staff') {
+                                        $visible = true;
+                                    } else if($role == 'Staff' && auth()->user()->role->role_name == 'Student') {
+                                        $visible = false;
+                                    }
+                                ?>
+
+                                @if ($visible)
+                                    <div class="message-item" id="m2" style="width: 66%;">
                                     <div class="message-inner">
                                         <div class="message-head clearfix">
                                             <div class="avatar pull-left"><a href="./index.php?qa=user&qa_1=Oleg+Kolesnichenko"><img src="https://ssl.gstatic.com/accounts/ui/avatar_2x.png"></a></div>
@@ -159,21 +173,21 @@
                                                     <p></p>
                                                     <div class="pull-left">
                                                         @php
-                                                            if ($likes = \App\IdeaReaction::reactionExists(true, $idea->id, auth()->user()->id))
-                                                                $liked = 'btn-danger';
+                                                            if (\App\IdeaReaction::reactionExists(true, $idea->id, auth()->user()->id))
+                                                                $liked = 'btn-primary';
                                                             else
                                                                 $liked = 'btn-default';
 
-                                                            if ($dislikes = \App\IdeaReaction::reactionExists(false, $idea->id, auth()->user()->id))
-                                                                $disliked = 'btn-danger';
+                                                            if (\App\IdeaReaction::reactionExists(false, $idea->id, auth()->user()->id))
+                                                                $disliked = 'btn-primary';
                                                             else
                                                                 $disliked = 'btn-default';
                                                         @endphp
                                                         <a href="{{ url('idea/thumbs/'. $idea->id .'/1') }}" class="btn btn-xs {{ $liked }}">
-                                                            <i class="fa fa-thumbs-up fa-2x"></i> {{ $likes }}
+                                                            <i class="fa fa-thumbs-up fa-2x"></i> {{ \App\IdeaReaction::reactionCount(true, $idea->id, auth()->user()->id) }}
                                                         </a>
                                                         <a href="{{ url('idea/thumbs/'. $idea->id .'/0') }}" class="btn btn-xs {{ $disliked }}">
-                                                            <i class="fa fa-thumbs-down fa-2x"></i> {{ $dislikes }}
+                                                            <i class="fa fa-thumbs-down fa-2x"></i> {{ \App\IdeaReaction::reactionCount(false, $idea->id, auth()->user()->id) }}
                                                         </a>
                                                     </div>
                                                 </div>
@@ -200,6 +214,7 @@
                                         </form>
                                     </div>
                                 </div>
+                                @endif
 
                             @endforeach
                         @endif
