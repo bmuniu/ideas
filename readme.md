@@ -8,7 +8,7 @@ Idea Sharing is a web-enabled role-based system for collecting ideas for improve
 - Ensure you have composer installed
 
 ## Installation
-
+- ```cd``` into the projects directory ```ideas```
 - Run the command ```cp .env.example .env``` to create the environment variables file
 - Run ```composer install``` to install the required packages
 - Create the database ```ideas``` 
@@ -17,7 +17,7 @@ Idea Sharing is a web-enabled role-based system for collecting ideas for improve
     - DB_USERNAME to your database username
     - DB_PASSWORD to your database password
 - Run the command ```php artisan migrate --seed``` to create the database schema and test data
-- cd into the projects directory ```ideas``` then run ```php artisan serve```. This should launch the development server 
+- Run ```php artisan serve```. This should launch the development server 
 - run the web application from ```http://localhost:8000```
 
 ## Test Credentials
