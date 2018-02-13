@@ -122,19 +122,23 @@
 
         <div class="panel-body">
             <div class="container">
-                @include('common.success')
-                @include('common.error')
                 <div class="row">
                     <div class="qa-message-list" id="wallmessages">
                         @if (count($ideas))
                             @foreach($ideas as $idea)
 
                                 <div class="message-item" id="m2" style="width: 66%;">
+                                    @include('common.success')
+                                    @include('common.error')
                                     <div class="message-inner">
                                         <div class="message-head clearfix">
                                             <div class="avatar pull-left"><a href="./index.php?qa=user&qa_1=Oleg+Kolesnichenko"><img src="https://ssl.gstatic.com/accounts/ui/avatar_2x.png"></a></div>
                                             <div class="user-detail">
-                                                <h5 class="handle">{{ $idea->user->name }}</h5>
+                                                @if(!$idea->anonymous)
+                                                    <h5 class="handle">{{ $idea->user->name }}</h5>
+                                                @else
+                                                    <h5 class="handle">Anonymous</h5>
+                                                @endif
                                                 <div class="post-meta">
                                                     <div class="asker-meta">
                                                         <span class="qa-message-what"></span>
@@ -178,6 +182,22 @@
                                         <div class="qa-message-content">
                                             {{ $idea->idea }}
                                         </div>
+                                        <hr/>Comments
+                                        @if(count($idea->comments))
+                                            @foreach($idea->comments as $comment)
+                                                <blockquote>
+                                                    {{ $comment->comment }}
+                                                    <b style="font-size: small">by {{ (!$comment->anonymous) ? $comment->user->name : 'Anonymous' }}</b>
+                                                </blockquote>
+                                            @endforeach
+                                        @endif
+                                        <form action="{{ url('comment/'. $idea->id) }}" method="post">
+                                            {{ csrf_field() }}
+                                            <textarea class="form-control" name="comment" placeholder="Add Comment"></textarea>
+                                            <input type="checkbox" name="anonymous"/> Anonymous
+                                            <p></p>
+                                            <button class="btn btn-primary">Comment</button>
+                                        </form>
                                     </div>
                                 </div>
 

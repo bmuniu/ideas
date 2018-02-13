@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Comment;
 use App\Department;
 use App\Idea;
 use App\IdeaCategory;
@@ -25,7 +26,8 @@ class IdeasController extends Controller
 
     public function index() {
         $ideas = Idea::all();
-        return view('ideas.index')->with('ideas', $ideas);
+        $comments = Comment::all();
+        return view('ideas.index', ['comments' => $comments])->with('ideas', $ideas);
     }
 
     public function store() {
@@ -59,5 +61,11 @@ class IdeasController extends Controller
 
         request()->session()->flash('success', 'Your Idea has been posted.');
         return redirect('ideas');
+    }
+
+    public function download($idea_id) {
+        $idea = Idea::find($idea_id);
+
+        return response()->download($idea->document_file);
     }
 }
