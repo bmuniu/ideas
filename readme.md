@@ -5,10 +5,12 @@ Idea Sharing is a web-enabled role-based system for collecting ideas for improve
 ## Requirements
 - The project requires at least *php version 7.0*
 - The project requires a MySQL database
+- Ensure you have composer installed
 
 ## Installation
 
 - Run the command ```cp .env.example .env``` to create the environment variables file
+- Run ```composer install``` to install the required packages
 - Create the database ```ideas``` 
 - Edit the <b>.env</b> and set the following;
     - DB_DATABASE to ```ideas```
