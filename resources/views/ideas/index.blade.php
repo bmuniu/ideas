@@ -123,6 +123,7 @@
         <div class="panel-body">
             <div class="container">
                 @include('common.success')
+                @include('common.error')
                 <div class="row">
                     <div class="qa-message-list" id="wallmessages">
                         @if (count($ideas))
@@ -144,8 +145,8 @@
                                                         @if(!empty($idea->document_file))
                                                             <span class="qa-message-who">
                                                                 <span class="qa-message-who-data">
-                                                                    <a href="{{ url('download/doc/' . $idea->id) }}" class="btn btn-info btn-xs">
-                                                                        <i class="fa fa-paperclip"></i> Download Attached Document</a>
+                                                                    <a href="{{ url('download/doc/' . $idea->id) }}" class="btn btn-info btn-xs" data-toggle="tooltip" title="Download Attached Document">
+                                                                        <i class="fa fa-download"></i></a>
                                                                 </span>
                                                             </span>
                                                         @endif
@@ -153,11 +154,22 @@
                                                     </div>
                                                     <p></p>
                                                     <div class="pull-left">
-                                                        <a href="{{ url('idea/thumbs/'. $idea->id .'/1') }}" class="btn btn-xs btn-default">
-                                                            <i class="fa fa-thumbs-up fa-2x"></i> 90
+                                                        @php
+                                                            if ($likes = \App\IdeaReaction::reactionExists(true, $idea->id, auth()->user()->id))
+                                                                $liked = 'btn-danger';
+                                                            else
+                                                                $liked = 'btn-default';
+
+                                                            if ($dislikes = \App\IdeaReaction::reactionExists(false, $idea->id, auth()->user()->id))
+                                                                $disliked = 'btn-danger';
+                                                            else
+                                                                $disliked = 'btn-default';
+                                                        @endphp
+                                                        <a href="{{ url('idea/thumbs/'. $idea->id .'/1') }}" class="btn btn-xs {{ $liked }}">
+                                                            <i class="fa fa-thumbs-up fa-2x"></i> {{ $likes }}
                                                         </a>
-                                                        <a href="{{ url('idea/thumbs/'. $idea->id .'/0') }}" class="btn btn-xs btn-default">
-                                                            <i class="fa fa-thumbs-down fa-2x"></i> 56
+                                                        <a href="{{ url('idea/thumbs/'. $idea->id .'/0') }}" class="btn btn-xs {{ $disliked }}">
+                                                            <i class="fa fa-thumbs-down fa-2x"></i> {{ $dislikes }}
                                                         </a>
                                                     </div>
                                                 </div>

@@ -60,8 +60,4 @@ class IdeasController extends Controller
         request()->session()->flash('success', 'Your Idea has been posted.');
         return redirect('ideas');
     }
-
-    public function react(bool $reaction, int $idea_id) {
-
-    }
 }
