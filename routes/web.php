@@ -20,12 +20,15 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 
 Route::group(['prefix' => 'admin'], function() {
-    Route::get('departments', 'DepartmentsController@index');
     Route::get('register/user', 'RegistrationController@index');
     Route::post('register/user', 'RegistrationController@store');
     Route::get('user/{user}', 'RegistrationController@edit');
     Route::put('user', 'RegistrationController@update');
     Route::get('delete/user/{id}', 'RegistrationController@destroy');
+
+    Route::get('departments', 'DepartmentsController@index');
+    Route::post('department', 'DepartmentsController@store');
+    Route::get('department/{id}', 'DepartmentsController@destroy');
 });
 
 Route::get('/post/idea', 'IdeasController@postIdea');
