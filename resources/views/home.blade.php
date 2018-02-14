@@ -6,13 +6,31 @@
         <div class="panel-heading"><i class="fa fa-dashboard"></i> Dashboard</div>
 
         <div class="panel-body">
-            <div class="card" style="width: 18rem;">
-                <div class="card-body">
-                    <h5 class="card-title">Card title</h5>
-                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                    <a href="#" class="btn btn-primary">Go somewhere</a>
-                </div>
-            </div>
+            @if (auth()->user()->role->role_name == 'Staff')
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th colspan="2">Ideas Per Department</th>
+                    </tr>
+                    <tr>
+                        <th>Deparment</th>
+                        <th>No of Ideas</th>
+                    </tr>
+                </thead>
+                <thead>
+                    @if((count($departments)))
+                        @foreach($departments as $department)
+                            <tr>
+                                <td>{{ $department->department_name }}</td>
+                                <td>{{ $department->no }}</td>
+                            </tr>
+                        @endforeach
+                    @endif
+                </thead>
+            </table>
+            @else
+            <h3>Welcome</h3>
+            @endif
         </div>
     </div>
 @endsection

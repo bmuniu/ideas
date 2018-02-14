@@ -6,6 +6,7 @@ use App\Comment;
 use App\Department;
 use App\Idea;
 use App\IdeaCategory;
+use App\IdeaReaction;
 use Illuminate\Http\Request;
 
 class IdeasController extends Controller
@@ -25,9 +26,8 @@ class IdeasController extends Controller
     }
 
     public function index() {
-        $ideas = Idea::all();
-        $comments = Comment::all();
-        return view('ideas.index', ['comments' => $comments])->with('ideas', $ideas);
+        $ideas = Idea::latest()->get();
+        return view('ideas.index')->with('ideas', $ideas);
     }
 
     public function store() {
@@ -67,5 +67,19 @@ class IdeasController extends Controller
         $idea = Idea::find($idea_id);
 
         return response()->download($idea->document_file);
+    }
+
+    public function popular() {
+        $popular_ideas = IdeaReaction::popularIdeas();
+        $ideas = [];
+
+
+        if (count($popular_ideas)) {
+            foreach ($popular_ideas as $idea) {
+                $ideas[$idea->idea_id] = Idea::find($idea->idea_id);
+            }
+        }
+
+        return view('ideas.popular')->with('ideas', $ideas);
     }
 }

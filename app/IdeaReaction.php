@@ -27,4 +27,8 @@ class IdeaReaction extends Model
             ->where('user_id', $user_id)
             ->delete();
     }
+
+    public static function popularIdeas() {
+        return self::where('reaction', 1)->get();
+    }
 }

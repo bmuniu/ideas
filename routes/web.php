@@ -41,6 +41,7 @@ Route::get('/post/idea', 'IdeasController@postIdea');
 Route::post('/post/idea', 'IdeasController@store');
 Route::get('/ideas', 'IdeasController@index');
 Route::get('download/doc/{idea_id}', 'IdeasController@download');
+Route::get('/popular/ideas', 'IdeasController@popular');
 
 Route::get('/idea/thumbs/{idea_id}/{reaction}', 'IdeaReactionController@react');
 

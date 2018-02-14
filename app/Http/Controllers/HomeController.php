@@ -2,10 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Department;
+use App\Idea;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
 {
+    private $_departments = [];
     /**
      * Create a new controller instance.
      *
@@ -23,6 +26,17 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        if ($deparments = Department::all()) {
+            foreach ($deparments as $department) {
+                $this->_departments[] = (object) [
+                    'department_name' => $department->department_name,
+                    'no' => Idea::where('department_id', $department->id)->count()
+                ];
+            }
+        }
+
+        return view('home', [
+            'departments' => $this->_departments
+        ]);
     }
 }

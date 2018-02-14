@@ -48,6 +48,12 @@ return [
             'icon' => 'fa-list'
         ],
 
+        (object) [
+            'name' => 'Most Popular Ideas',
+            'url' => 'popular/ideas',
+            'icon' => 'Ideas'
+        ],
+
     ],
 
     'student' => [
